@@ -1,0 +1,79 @@
+{% extends 'base.html' %} {% block title %}Contribute to Enock's Birthday Gift{%
+endblock %} {% block content %}
+<div class="max-w-4xl mx-auto">
+  <!-- Header -->
+  <div class="bg-green-600 text-white rounded-lg shadow-lg p-8 mb-8">
+    <h1 class="text-4xl font-bold mb-4">Contribute to Enock's Birthday Gift</h1>
+    <p class="text-xl">
+      Help make this birthday extra special with a contribution!
+    </p>
+  </div>
+
+  <!-- Contribution Form -->
+  <div class="bg-white rounded-lg shadow-md p-8">
+    <h2 class="text-2xl font-bold mb-6">Gift Contribution</h2>
+    <form method="POST" action="{{ url_for('user.contribute') }}">
+      {{ form.csrf_token }}
+
+      <div class="mb-4">
+        <label
+          for="{{ form.amount.id }}"
+          class="block text-gray-700 font-medium mb-2"
+          >{{ form.amount.label }}</label
+        >
+        <div class="relative">
+          <div
+            class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+          >
+            <span class="text-gray-500">KES</span>
+          </div>
+          {{ form.amount(class="w-full pl-12 px-4 py-2 border rounded-lg
+          focus:outline-none focus:ring-2 focus:ring-green-500", min="10") }}
+        </div>
+        {% if form.amount.errors %}
+        <div class="text-red-500 text-sm mt-1">
+          {% for error in form.amount.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="mb-6">
+        <label
+          for="{{ form.phone.id }}"
+          class="block text-gray-700 font-medium mb-2"
+          >{{ form.phone.label }}</label
+        >
+        {{ form.phone(class="w-full px-4 py-2 border rounded-lg
+        focus:outline-none focus:ring-2 focus:ring-green-500") }} {% if
+        form.phone.errors %}
+        <div class="text-red-500 text-sm mt-1">
+          {% for error in form.phone.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+        <p class="text-gray-500 text-sm mt-2">
+          Enter the phone number to receive the MPESA payment request
+        </p>
+      </div>
+
+      <div>
+        {{ form.submit(class="w-full bg-green-600 hover:bg-green-700 text-white
+        font-medium py-3 px-4 rounded-lg transition duration-200") }}
+      </div>
+    </form>
+
+    <div class="mt-8 p-4 bg-gray-100 rounded-lg">
+      <h3 class="font-bold text-lg mb-2">How it works:</h3>
+      <ol class="list-decimal list-inside space-y-2 text-gray-700">
+        <li>Enter your contribution amount and MPESA phone number</li>
+        <li>You'll receive an MPESA push notification on your phone</li>
+        <li>Enter your MPESA PIN to complete the transaction</li>
+        <li>Your contribution will be automatically recorded</li>
+      </ol>
+    </div>
+  </div>
+</div>
+{% endblock %}

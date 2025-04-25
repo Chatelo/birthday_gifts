@@ -1,0 +1,45 @@
+{% extends 'base.html' %} {% block title %}Leave a Birthday Message{% endblock
+%} {% block content %}
+<div class="max-w-4xl mx-auto">
+  <!-- Header -->
+  <div class="bg-blue-600 text-white rounded-lg shadow-lg p-8 mb-8">
+    <h1 class="text-4xl font-bold mb-4">Leave a Birthday Message</h1>
+    <p class="text-xl">
+      Share your thoughts, wishes, and memories with Enock on this special day!
+    </p>
+  </div>
+
+  <!-- Message Form -->
+  <div class="bg-white rounded-lg shadow-md p-8">
+    <h2 class="text-2xl font-bold mb-6">Your Message</h2>
+    <form method="POST" action="{{ url_for('user.message_page') }}">
+      {{ form.csrf_token }}
+
+      <div class="mb-6">
+        <label
+          for="{{ form.content.id }}"
+          class="block text-gray-700 font-medium mb-2"
+          >{{ form.content.label }}</label
+        >
+        {{ form.content(class="w-full px-4 py-2 border rounded-lg
+        focus:outline-none focus:ring-2 focus:ring-blue-500", rows=5) }} {% if
+        form.content.errors %}
+        <div class="text-red-500 text-sm mt-1">
+          {% for error in form.content.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+        <p class="text-gray-500 text-sm mt-2">
+          Your message will be shared with Enock on their birthday.
+        </p>
+      </div>
+
+      <div>
+        {{ form.submit(class="w-full bg-blue-600 hover:bg-blue-700 text-white
+        font-medium py-3 px-4 rounded-lg transition duration-200") }}
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
